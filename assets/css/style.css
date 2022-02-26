@@ -183,6 +183,12 @@ container {
     width: 71.5%;
     background-color: transparent;
 }
+#barra-ativa {
+    background: linear-gradient(-90deg, #58bd7f, #4ea770, #408f71, #296343);
+    animation: gradient 5s ease infinite;
+    background-size: 400% 400%;
+    font-weight: 700;
+}
 
 
 /* ABA CRIAR RNC */

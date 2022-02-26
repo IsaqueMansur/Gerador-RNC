@@ -19,14 +19,14 @@ function pegarHtmlPainel(submit) {
         }))   
     } 
     
-    /* if (submit == "enviadas") {
-        axios("./criar.html").then((resposta => {
+    if (submit == "enviadas") {
+        axios("./enviadas.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit);
         }))   
     }
 
-    if (submit == "recebidas") {
+    /* if (submit == "recebidas") {
         axios("./criar.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit );
@@ -38,8 +38,22 @@ function exportarHtmlPainel(html, submit) {
     const local = document.querySelector("#painel-principal");
     local.classList += String(` ${submit}`)
     local.innerHTML = html;
-    eventoOrigemRnc();
+    if (submit == "gerar") eventoOrigemRnc();
+    abaSelecionadaMenu(submit)
 }
+function abaSelecionadaMenu(submit) {
+    try {
+        let barraAnterior = document.querySelector("#barra-ativa");
+        barraAnterior.removeAttribute("id")
+        barraAnterior.style = "none";
+    } catch {
+
+    }
+    const sub = (`submit-${submit}`);
+    const barraSelecionada = document.querySelector(`.${sub}`);
+    barraSelecionada.id = "barra-ativa";
+}
+
 function eventoOrigemRnc() {
     let opcaoSelecionada;
     let abaSelecionada;
