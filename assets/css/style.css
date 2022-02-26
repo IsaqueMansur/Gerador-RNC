@@ -92,22 +92,15 @@ container {
     font-size: 1em;
 }
 #background-cab-menu {
-    position: absolute;
-    border-radius: 20px;
-    background: white;
     width: 100%;
     height: 15%;
-    opacity: 0.4;
 }#options-menu {
     background-color: transparent;
 }#background-options {
     margin-top: 2%;
-    position: absolute;
     border-radius: 20px;
-    background: white;
     width: 97.5%;
     height: 33.1em;
-    opacity: 0.4;
 }
 #tabela-opcoes-menu {
     overflow: hidden;
@@ -202,6 +195,13 @@ container {
     height: 150px;
     align-items: center;
 }
+
+.background-transp {
+    position: absolute;
+    border-radius: 10px;
+    background: white;
+    opacity: 0.4;
+}
 .padrao-info-input {
     height: 75px;
     width: 260px;
@@ -209,12 +209,13 @@ container {
     text-align: center;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-clean);
+    background-color: transparent;
     border-radius: 10px;
     border-style: solid;
     border-color: white;
     border-width: .5px;
-    color: var(--color-dark);
+    color: white;
+    z-index: 1;
 }.padrao-info-input select {
     font-family: var(--font-padrao);
     border-radius: 0 0 10px 10px;
@@ -229,11 +230,15 @@ container {
 }.padrao-info-input option {
     height: 40px;
 }
+#background-tipo-rnc {   
+    width: 261px;
+    height: 75px;   
+}
 
 /* CSS CHECKBOX  */
 .content {
     font-family: var(--font-padrao);
-    color: var(--color-dark);
+    color: white;
     display: flex;
     align-items: center;
 }.content p3 {
@@ -243,7 +248,7 @@ container {
    width: 240px;
    padding: 10px;
    border-radius: 10px;
-   background-color: var(--color-clean);
+   background-color: transparent;
    display: flex;
     flex-direction: column;
     align-items: center;
@@ -254,6 +259,7 @@ container {
     border-style: solid;
     border-color: white;
     border-width: .5px;
+    z-index: 1;
 }
 .list__item {
     background-color: var(--color-dark);
@@ -281,6 +287,11 @@ container {
   margin: 0 1rem 0 0 ;   
   cursor: pointer;
   margin-left: 5px;
+}
+#background-checksbox {
+    width: 261px;
+    height: 35%;
+    margin-left: 8px;
 }
   
   
