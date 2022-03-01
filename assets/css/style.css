@@ -34,7 +34,7 @@ container {
     display: flex;
     background: transparent;
     width: 95%;
-    height: 650px;
+    height: 700px;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -183,16 +183,19 @@ container {
     font-weight: 700;
 }
 
+.input-off {
+    opacity: 0.5;
+}
 
 /* ABA CRIAR RNC */
 #criar-rnc {
     display: flex;
     width: 100%;
+    align-items: center;
 }
 #cabecalho-criar {
     display: flex;
     flex-direction: column;
-    height: 150px;
     align-items: center;
 }
 
@@ -214,7 +217,6 @@ container {
     border-style: solid;
     border-color: white;
     border-width: .5px;
-    color: white;
     z-index: 1;
 }.padrao-info-input select {
     font-family: var(--font-padrao);
@@ -226,8 +228,10 @@ container {
     text-align: center;
     font-size: 18pt;
 }.padrao-info-input p3 {
+    color: var(--color-dark);
     font-size: 22pt;
-}.padrao-info-input option {
+}
+.padrao-info-input option {
     height: 40px;
 }
 #background-tipo-rnc {   
@@ -238,7 +242,7 @@ container {
 /* CSS CHECKBOX  */
 .content {
     font-family: var(--font-padrao);
-    color: white;
+    color: var(--color-dark);
     display: flex;
     align-items: center;
 }.content p3 {
@@ -293,5 +297,59 @@ container {
     height: 35%;
     margin-left: 8px;
 }
+.input-padrao-criar {
+    height: 40px;
+    border-radius: 0 0 10px 10px;
+    z-index: 1;
+    border-style: none;
+    border-width: 0;
+    text-align: center;
+    background-color: var(--color-dark);
+    font-family: var(--font-padrao);
+    font-size: 18pt;
+    color: white;
+}
+.input-padrao-criar, select:hover {
+    cursor: pointer;
+}
+#background-usuario-emitiu {
+    height: 75px;
+    width: 261px;
+    z-index: -1;
+}
+#visto {
+    margin-top: 7px;
+}
+#visto input {
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--color-dark);
+    background-color: white;
+    color: var(--color-dark);
+}#visto input {
+    cursor: text;
+}
+#background-visto {
+    height: 75px;
+    width: 261px;
+    z-index: -1;
+}
+#setor {
+    margin-top: 7px;
+}
+#background-setor {
+    height: 75px;
+    width: 261px;
+    z-index: -1;
+}
+#data {
+    margin-top: 7px;
+}
+#background-data {
+    height: 75px;
+    width: 261px;
+    z-index: -1;
+}
+
   
   

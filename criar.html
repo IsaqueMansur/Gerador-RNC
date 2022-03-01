@@ -4,11 +4,31 @@
         <div class="padrao-info-input">
             <p3>TIPO</p3>
             <select class="select-padrao">
+                <option></option>
                 <option>CORRETIVA</option>
                 <option>PREVENTIVA</option>
             </select>
         </div>
         <div id="background-tipo-rnc" class="background-transp"></div>
+
+        <div class="padrao-info-input" id="setor">
+            <p3>SETOR</p3>
+            <select class="select-padrao">
+                <option></option>
+                <option>EXTRUSÃO</option>
+                <option>IMRPESSÃO</option>
+                <option>CORTE</option>
+                <option>LAMINAÇÃO</option>
+                <option>REBOBINADEIRA</option>
+            </select> 
+            <div id="background-setor" class="background-transp"></div>
+        </div>
+
+        <div class="padrao-info-input" id="data">
+            <p3>DATA</p3>
+            <input type="date" class="input-padrao-criar">
+            <div id="background-data" class="background-transp"></div>
+        </div>
 
         <div class="content">
             <ul class="list">
@@ -37,6 +57,19 @@
           <div id="background-checksbox" class="background-transp"></div>
         </div>
 
+        <div class="padrao-info-input" id="emitido">
+            <p3>EMITIDA POR</p3>
+            <input type="submit text" disabled class="input-padrao-criar input-off" value="Usuário.Teste"> 
+            <div id="background-usuario-emitiu" class="background-transp"></div>
+        </div>
+        
+
+        <div class="padrao-info-input" id="visto">
+            <p3>VISTO</p3>
+            <input type="submit text" class="input-padrao-criar"> 
+            <div id="background-visto" class="background-transp"></div>
+        </div>
+           
     </div>
     
 </section>
