@@ -1,4 +1,4 @@
-document.addEventListener("click", e => {
+document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
     const target = e.target.classList[0];
     const encontraSubmit = target.slice(0, 6);
 
@@ -16,6 +16,7 @@ function pegarHtmlPainel(submit) {
         axios("./criar.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit);
+            validaRnc();
         }))   
     } 
     
@@ -26,17 +27,17 @@ function pegarHtmlPainel(submit) {
         }))   
     }
 
-    /* if (submit == "recebidas") {
-        axios("./criar.html").then((resposta => {
+    if (submit == "recebidas") {
+        axios("./recebidas.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit );
         }))   
-    } */
+    }
 }
 
 function exportarHtmlPainel(html, submit) {
     const local = document.querySelector("#painel-principal");
-    local.classList += String(` ${submit}`)
+    local.classList = `flex ${String(` ${submit}`)}`;
     local.innerHTML = html;
     if (submit == "gerar") eventoOrigemRnc();
     abaSelecionadaMenu(submit)
@@ -61,6 +62,9 @@ function eventoOrigemRnc() {
     let filhosListaOp = (new Array(...listaOpcoes.children));
     filhosListaOp.splice(0, 1)
     listaOpcoes.addEventListener('click', (e) => {
+        try {
+            document.querySelector("#origem").removeAttribute('id');
+        } catch {}
         if (e.target.className == 'list') return
         for (let i in filhosListaOp) {
             if (filhosListaOp[i].children[0].children[0].checked) {
@@ -73,8 +77,54 @@ function eventoOrigemRnc() {
             e.target.checked = true;
             abaSelecionada.style.background = "white";
             abaSelecionada.style.color = "green"  
-            opcaoSelecionada = e.target.parentElement.childNodes[2]; 
+            opcaoSelecionada = e.target.parentElement.childNodes[2];
+            e.target.id = "origem"; 
         }
         return opcaoSelecionada
     })
+}
+
+function validaRnc() {
+    document.querySelector("#criar-rnc").addEventListener("submit", e => {
+        e.preventDefault();
+
+        const tipo = document.querySelector("#tipo").value;
+        const setor = document.querySelector("#setor").value;
+        const data = document.querySelector("#data").value;
+        let origem = document.querySelector("#origem");
+        const emissao = document.querySelector("#emissao").value;
+        const descricao = document.querySelector("#descricao").value;
+
+        if (tipo == '' || setor == '' || data == '' || descricao == '') {
+            alert("Campos incompletos");
+            return
+        }
+        if (origem == null) {
+            alert ("Defina a origem");
+            return
+        }
+        origem = origem.parentElement.childNodes[2].data; 
+        const rncGerada = new Rnc(tipo, setor, data, origem, emissao, descricao);
+        console.log(rncGerada)
+        return
+    })  
+    return 
+} 
+
+class Rnc {
+    constructor(tipo, setor, data, origem, criador, descricao) {
+        this.codigo = "ultima RNC + 1",
+        this.criador = criador,
+        this.tipo = tipo,
+        this.setor = setor,
+        this.data = data,
+        this.origem = origem, 
+        this.descricao = descricao,
+        this.receptor = null,
+        this.observadores = [],
+        this.imgProb = [],
+        this.imgSolu = [],
+        this.aberta = true,
+        this.status = "aguardando apontamento"
+    }
 }

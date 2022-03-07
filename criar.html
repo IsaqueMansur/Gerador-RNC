@@ -1,9 +1,8 @@
-<section id="criar-rnc" class="painel-exportado">
+<form id="criar-rnc" class="painel-exportado">
     <div id="cabecalho-criar">
-
         <div class="padrao-info-input">
             <p3>TIPO</p3>
-            <select class="select-padrao">
+            <select class="select-padrao" id="tipo">
                 <option></option>
                 <option>CORRETIVA</option>
                 <option>PREVENTIVA</option>
@@ -11,9 +10,9 @@
         </div>
         <div id="background-tipo-rnc" class="background-transp"></div>
 
-        <div class="padrao-info-input" id="setor">
+        <div class="padrao-info-input">
             <p3>SETOR</p3>
-            <select class="select-padrao">
+            <select class="select-padrao" id="setor">
                 <option></option>
                 <option>EXTRUSÃO</option>
                 <option>IMRPESSÃO</option>
@@ -24,9 +23,9 @@
             <div id="background-setor" class="background-transp"></div>
         </div>
 
-        <div class="padrao-info-input" id="data">
+        <div class="padrao-info-input">
             <p3>DATA</p3>
-            <input type="date" class="input-padrao-criar">
+            <input type="date" class="input-padrao-criar"  id="data">
             <div id="background-data" class="background-transp"></div>
         </div>
 
@@ -59,17 +58,31 @@
 
         <div class="padrao-info-input" id="emitido">
             <p3>EMITIDA POR</p3>
-            <input type="submit text" disabled class="input-padrao-criar input-off" value="Usuário.Teste"> 
+            <input disabled class="input-padrao-criar input-off" value="Usuário.Teste" id="emissao"> 
             <div id="background-usuario-emitiu" class="background-transp"></div>
         </div>
         
 
         <div class="padrao-info-input" id="visto">
             <p3>VISTO</p3>
-            <input type="submit text" class="input-padrao-criar"> 
+            <input text" class="input-padrao-criar"> 
             <div id="background-visto" class="background-transp"></div>
+        </div>   
+    </div>
+
+    <div id="body-criar">
+
+        <div class="description">
+            <h1>DESCRIÇÃO</h1>
+            <textarea type="text" id="descricao"></textarea>
         </div>
-           
+
+        <div id="fotos" class="description">
+            <h1>ANEXAR FOTOS</h1>
+            <p>Versão: 0.0.3 (NODE_IMG_UP_BETA)</p>
+            <button class="btn-padrao-1">ANEXAR</button>
+        </div>    
+        <button type="submit" class="btn-padrao-1" id="botao-gerar-rnc">GERAR RNC</button>
     </div>
     
-</section>
+</form>

@@ -350,5 +350,54 @@ container {
     z-index: -1;
 }
 
-  
+#body-criar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-items: center;
+    font-family: var(--font-padrao);
+    width: 100%;
+    background-color: var(--color-dark);
+    height: 640px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-left: 1%;
+}#body-criar h1 {
+    text-align: center;
+    color: white;
+    font-size: 22pt;
+}
+.description {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#descricao {
+    font-size: 18pt;
+    padding: 10px;
+    width: 95%;
+    height: 220px;
+    border-radius: 10px;
+}
+.btn-padrao-1 {
+    font-weight: 700;
+    border-style: none;
+    border-radius: 10px;
+    color: var(--color-dark);
+    background-color: white;
+}.btn-padrao-1:hover {
+    cursor: pointer;
+    opacity: .9;
+    background-color: var(--color-clean);
+    color: white;
+}
+
+#botao-gerar-rnc {
+    font-size: 18pt;
+    position: absolute;
+    margin-top: 580px;
+    width: 200px;
+    height: 50px;
+}
   
