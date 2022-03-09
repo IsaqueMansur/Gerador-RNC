@@ -13,7 +13,7 @@ function pegarHtmlPainel(submit) {
     let informarcoes
 
     if (submit == "gerar") {
-        axios("./criar.html").then((resposta => {
+        axios("../html/criar.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit);
             validaRnc();
@@ -21,16 +21,16 @@ function pegarHtmlPainel(submit) {
     } 
     
     if (submit == "enviadas") {
-        axios("./enviadas.html").then((resposta => {
+        axios("../html/enviadas.html").then((resposta => {
             informarcoes = resposta.data;
             exportarHtmlPainel(informarcoes, submit);
         }))   
     }
 
     if (submit == "recebidas") {
-        axios("./recebidas.html").then((resposta => {
+        axios("../html/recebidas.html").then((resposta => {
             informarcoes = resposta.data;
-            exportarHtmlPainel(informarcoes, submit );
+            exportarHtmlPainel(informarcoes, submit);
         }))   
     }
 }
@@ -127,4 +127,12 @@ class Rnc {
         this.aberta = true,
         this.status = "aguardando apontamento"
     }
+}
+
+async function testeBancoUsers() {
+
+    await axios("../../json/users.json").then((resposta => {
+        users = resposta.data;
+    }))
+    console.log(users)
 }
