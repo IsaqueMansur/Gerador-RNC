@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 :root {
     --color-dark: rgb(43, 133, 106);
     --color-clean: rgb(148, 211, 161);
@@ -45,6 +47,7 @@ container {
     width: 100%;
     height: 100%;
     opacity: 0.7;
+    z-index: -1;
 }
 #menu {
     padding-left: .5%;
@@ -91,7 +94,7 @@ container {
     font-size: 1em;
 }
 #background-cab-menu {
-    width: 100%;
+    width: 97.5%;
     height: 15%;
 }#options-menu {
     background-color: transparent;
@@ -320,13 +323,8 @@ container {
     margin-top: 7px;
 }
 #visto input {
-    border-style: solid;
-    border-width: 2px;
-    border-color: var(--color-dark);
-    background-color: white;
-    color: var(--color-dark);
-}#visto input {
     cursor: text;
+    color: var(--color-dark)
 }
 #background-visto {
     height: 75px;
@@ -400,4 +398,76 @@ container {
     width: 200px;
     height: 50px;
 }
+
+/*ABA ENVIAR RNC */
+
+#enviadas-rnc {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}  
+#cabecalho-enviadas {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    width: 25%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.search {
+    top: 1.2%;
+    width: 97%;
+    position: relative;
+    display: flex;
+}
+.searchTerm {
+    width: 100%;
+    border: 3px solid var(--color-dark);
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: var(--color-dark);
+} 
+.searchTerm:focus{
+    color: var(--color-dark);
+    background-color: white;
+}
+.searchButton {
+    width: 40px;
+    height: 36px;
+    border: 1px solid var(--color-dark);
+    background: var(--color-dark);
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.escopo-rncs {
+    border-radius: 10px 0px 0px 10px;
+    margin-top: 7%;
+    width: 95%;
+    background-color: transparent;
+    height: 90%;
+    overflow-y: scroll;
+    border-style: solid;    
+    border-color: white;
+    border-width: 2px;
+}
+
+.cabecalhoPadrao {
+    width: 25%;
+    height: 100%;
+    z-index: -1;
+}
   
+ 

@@ -2,7 +2,7 @@
     <div id="cabecalho-criar">
         <div class="padrao-info-input">
             <p3>TIPO</p3>
-            <select class="select-padrao" id="tipo">
+            <select class="select-padrao eventoC1" id="tipo">
                 <option></option>
                 <option>CORRETIVA</option>
                 <option>PREVENTIVA</option>
@@ -12,7 +12,7 @@
 
         <div class="padrao-info-input">
             <p3>SETOR</p3>
-            <select class="select-padrao" id="setor">
+            <select class="select-padrao eventoC1" id="setor">
                 <option></option>
                 <option>EXTRUSÃO</option>
                 <option>IMRPESSÃO</option>
@@ -25,9 +25,15 @@
 
         <div class="padrao-info-input">
             <p3>DATA</p3>
-            <input type="date" class="input-padrao-criar"  id="data">
+            <input type="date" class="input-padrao-criar eventoC1"  id="data">
             <div id="background-data" class="background-transp"></div>
         </div>
+
+        <div class="padrao-info-input">
+            <p3>VISTO</p3>
+            <input class="input-padrao-criar eventoC1" id="visto" autocomplete="off"> 
+            <div id="background-visto" class="background-transp"></div>
+        </div>  
 
         <div class="content">
             <ul class="list">
@@ -61,13 +67,7 @@
             <input disabled class="input-padrao-criar input-off" value="Usuário.Teste" id="emissao"> 
             <div id="background-usuario-emitiu" class="background-transp"></div>
         </div>
-        
-
-        <div class="padrao-info-input" id="visto">
-            <p3>VISTO</p3>
-            <input text" class="input-padrao-criar"> 
-            <div id="background-visto" class="background-transp"></div>
-        </div>   
+          
     </div>
 
     <div id="body-criar">
@@ -79,8 +79,8 @@
 
         <div id="fotos" class="description">
             <h1>ANEXAR FOTOS</h1>
-            <p>Versão: 0.0.3 (NODE_IMG_UP_BETA)</p>
-            <button class="btn-padrao-1">ANEXAR</button>
+            <p>Versão: 1.0.3 (NODE_IMG_UP_BETA)</p>
+            <button disabled class="btn-padrao-1">ANEXAR</button>
         </div>    
         <button type="submit" class="btn-padrao-1" id="botao-gerar-rnc">GERAR RNC</button>
     </div>

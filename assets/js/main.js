@@ -1,3 +1,43 @@
+//inicia TESTES jsons do servidor
+
+let users = axios("../../json/users.json").then((resposta => {
+    if (resposta.status > 199 && resposta.status < 300) {
+        users = [resposta.data];
+        users = users[0];
+        console.log('users baixados com sucesso');
+    }
+})).then((e => {
+    let rncs = axios("../../json/rncs.json").then((resposta => {
+        if (resposta.status > 199 && resposta.status < 300) {
+            rncs = [resposta.data];
+            rncs = rncs[0]
+            console.log('rncs baixadas com sucesso')
+            puxarRncsPorUsuario(rncs);
+        }
+    }))
+}));
+
+const userLogado = 0; //TESTANDO COM USER ADM
+
+//finaliza TESTES jsons do servidor
+
+
+
+//inicia TESTES de pushs de RNCS por usuario
+
+function puxarRncsPorUsuario() {
+    let rncsUsuarioLogado = {
+        enviadas: users[userLogado].rnc.enviadas,
+        recebidas: users[userLogado].rnc.recebidas,
+        observador: users[userLogado].rnc.observador
+    }
+    console.log(rncsUsuarioLogado)
+}
+
+//finaliza TESTES de pushs de RNCS por usuario
+
+
+
 document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
     const target = e.target.classList[0];
     const encontraSubmit = target.slice(0, 6);
@@ -9,30 +49,27 @@ document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
     pegarHtmlPainel(tipoSubmit)
 })
 
+document.addEventListener("click", e=> {
+    if (e.target.classList[1] !== 'eventoC1') return
+    console.log('a')
+    const elementos = document.querySelectorAll(".eventoC1");
+    for (var i in elementos) {
+        if (elementos[i].type == undefined) return
+        if (elementos[i].value !== '') {
+            elementos[i].style.background = "white";
+            elementos[i].style.color = "green";
+        }
+        else (elementos[i].style = 'none') 
+    }      
+})
+
 function pegarHtmlPainel(submit) {
-    let informarcoes
-
-    if (submit == "gerar") {
-        axios("../html/criar.html").then((resposta => {
-            informarcoes = resposta.data;
-            exportarHtmlPainel(informarcoes, submit);
-            validaRnc();
-        }))   
-    } 
-    
-    if (submit == "enviadas") {
-        axios("../html/enviadas.html").then((resposta => {
-            informarcoes = resposta.data;
-            exportarHtmlPainel(informarcoes, submit);
-        }))   
-    }
-
-    if (submit == "recebidas") {
-        axios("../html/recebidas.html").then((resposta => {
-            informarcoes = resposta.data;
-            exportarHtmlPainel(informarcoes, submit);
-        }))   
-    }
+    axios(`../html/${submit}.html`).then((res => {
+        const informarcoes = res.data
+        exportarHtmlPainel(informarcoes, submit);
+    })).then((e => {
+        if (submit == "gerar") validaRnc();   
+    }))
 }
 
 function exportarHtmlPainel(html, submit) {
@@ -42,6 +79,7 @@ function exportarHtmlPainel(html, submit) {
     if (submit == "gerar") eventoOrigemRnc();
     abaSelecionadaMenu(submit)
 }
+
 function abaSelecionadaMenu(submit) {
     try {
         let barraAnterior = document.querySelector("#barra-ativa");
@@ -53,9 +91,10 @@ function abaSelecionadaMenu(submit) {
     const sub = (`submit-${submit}`);
     const barraSelecionada = document.querySelector(`.${sub}`);
     barraSelecionada.id = "barra-ativa";
-}
+}   
 
 function eventoOrigemRnc() {
+    const visto = document.querySelector("#visto");
     let opcaoSelecionada;
     let abaSelecionada;
     const listaOpcoes = document.querySelector(".list");
@@ -80,14 +119,16 @@ function eventoOrigemRnc() {
             opcaoSelecionada = e.target.parentElement.childNodes[2];
             e.target.id = "origem"; 
         }
-        return opcaoSelecionada
+        if (visto.value !== '') {
+            visto.style.background = 'white';
+            visto.style.color = 'green';
+        }
     })
 }
 
 function validaRnc() {
     document.querySelector("#criar-rnc").addEventListener("submit", e => {
         e.preventDefault();
-
         const tipo = document.querySelector("#tipo").value;
         const setor = document.querySelector("#setor").value;
         const data = document.querySelector("#data").value;
@@ -105,8 +146,6 @@ function validaRnc() {
         }
         origem = origem.parentElement.childNodes[2].data; 
         const rncGerada = new Rnc(tipo, setor, data, origem, emissao, descricao);
-        console.log(rncGerada)
-        return
     })  
     return 
 } 
@@ -127,12 +166,4 @@ class Rnc {
         this.aberta = true,
         this.status = "aguardando apontamento"
     }
-}
-
-async function testeBancoUsers() {
-
-    await axios("../../json/users.json").then((resposta => {
-        users = resposta.data;
-    }))
-    console.log(users)
 }
