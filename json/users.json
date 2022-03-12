@@ -1,0 +1,29 @@
+[
+    {
+        "cod": 0,
+        "user": "Isaque Mansur",
+        "password": "123",
+        "img" : "../img/logo.png",
+        "permissoes": ["global_adm"],
+        "rnc": {
+            "enviadas": [1],
+            "recebidas": [],
+            "observador": [],
+            "permissoesAdm": []
+        }
+    },
+    {
+        "cod": 1,
+        "user": "Teste",
+        "password": "000",
+        "img" : "../img/logo.png",
+        "permissoes": [],
+        "rnc": {
+            "enviadas": [],
+            "recebidas": [],
+            "observador": [],
+            "permissoesAdm": []
+        }
+    }
+
+]

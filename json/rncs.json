@@ -1,0 +1,18 @@
+[
+    {
+        "codigo": 1,
+        "criador": 0,
+        "receptor": 0,
+        "observadores": [],
+        "tipo": "preventiva",
+        "setor": "extrusão",
+        "data_emissao" : "07/03/2022",
+        "origem": "reclamação de cliente",
+        "visto": "Teste",
+        "descricao" : "TEATSDTADTFASTFDTFATDFTAFSTDFTASFDTTASFDTAFSTDFSTAFDSA",
+        "img_prob": [],
+        "img_solu": [],
+        "aberta": true,
+        "status": "aguardando direcionamento"
+    }
+]
