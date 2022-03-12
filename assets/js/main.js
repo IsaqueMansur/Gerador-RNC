@@ -31,7 +31,7 @@ function puxarRncsPorUsuario() {
         recebidas: users[userLogado].rnc.recebidas,
         observador: users[userLogado].rnc.observador
     }
-    console.log(rncsUsuarioLogado)
+    return rncsUsuarioLogado
 }
 
 //finaliza TESTES de pushs de RNCS por usuario
@@ -164,6 +164,18 @@ class Rnc {
         this.imgProb = [],
         this.imgSolu = [],
         this.aberta = true,
-        this.status = "aguardando apontamento"
+        this.status = "aguardando apontamento",
+        this.historico = [],
+        this.observacoes = []
     }
+}
+
+function renderizarRncs(rncs) {
+    const local = document.querySelector(".escopo-rncs");
+    for (let i in rncs)  {
+        const div = document.createElement("div");
+        div.classList = "rnc-renderizada";
+        local.appendChild(div);
+    }
+
 }
