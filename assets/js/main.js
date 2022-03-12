@@ -164,6 +164,7 @@ class Rnc {
         this.imgProb = [],
         this.imgSolu = [],
         this.aberta = true,
+        this.lida = false,
         this.status = "aguardando apontamento",
         this.historico = [],
         this.observacoes = []
