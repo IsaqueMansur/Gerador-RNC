@@ -15,7 +15,7 @@ let users = axios("../../json/users.json").then((resposta => {
     }))
 }));
 
-const userLogado = 0; //TESTANDO COM USER ADM
+const userLogado = 1; //TESTANDO COM USER ADM
 
 //finaliza TESTES jsons do servidor
 
@@ -74,11 +74,10 @@ function pegarHtmlPainel(submit) {
             let listaPush = [];
             for (let i in rncsUsuarioLogado.enviadas) {
                 if (users[userLogado].rnc.enviadas[i] !== undefined) {
-                    console.log(users[userLogado].rnc.enviadas[i])
                     listaPush.push(users[userLogado].rnc.enviadas[i])
                 }  
             }
-            renderizarRncs(listaPush)
+            setarRncsPorUsuario(listaPush)
         }   
     }))
 }
@@ -183,16 +182,24 @@ class Rnc {
     }
 }
 
-function renderizarRncs(r) {
+function setarRncsPorUsuario(recebidas) {
     let rncsUsuario = [];
+    for (let i in recebidas) {
+        const findRnc = rncs.find(element => element.codigo == recebidas[i]);
+        rncsUsuario.push(findRnc);
+    }
+    renderizarRncs(rncsUsuario)
+}
+
+function renderizarRncs(rncsUsuario) { 
     const local = document.querySelector(".escopo-rncs");
-    for (let i in r)  {
-        let findRnc = rncs.find(element => element.codigo == r[i])
-        /* const found = array1.find(element => element > 10); */
+    for (let i in rncsUsuario)  {
+        const codigo = document.createTextNode(rncsUsuario[i].descricao)
+        const p = document.createElement("p");
+        p.appendChild(codigo);
         const div = document.createElement("div");
+        div.appendChild(p);
         div.classList = "rnc-renderizada";
         local.appendChild(div);
-        console.log(findRnc);
     }
-
 }
