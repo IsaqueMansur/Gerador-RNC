@@ -1,18 +1,16 @@
 //inicia TESTES jsons do servidor
-
+let rncs;
 let users = axios("../../json/users.json").then((resposta => {
     if (resposta.status > 199 && resposta.status < 300) {
         users = [resposta.data];
         users = users[0];
-        console.log('users baixados com sucesso');
     }
 })).then((e => {
-    let rncs = axios("../../json/rncs.json").then((resposta => {
+    rncs = axios("../../json/rncs.json").then((resposta => {
         if (resposta.status > 199 && resposta.status < 300) {
             rncs = [resposta.data];
-            rncs = rncs[0]
-            console.log('rncs baixadas com sucesso')
-            puxarRncsPorUsuario(rncs);
+            rncs = rncs[0];
+            puxarRncsPorUsuario();
         }
     }))
 }));
@@ -25,13 +23,14 @@ const userLogado = 0; //TESTANDO COM USER ADM
 
 //inicia TESTES de pushs de RNCS por usuario
 
+let rncsUsuarioLogado;
+
 function puxarRncsPorUsuario() {
-    let rncsUsuarioLogado = {
+    rncsUsuarioLogado = {
         enviadas: users[userLogado].rnc.enviadas,
         recebidas: users[userLogado].rnc.recebidas,
         observador: users[userLogado].rnc.observador
     }
-    return rncsUsuarioLogado
 }
 
 //finaliza TESTES de pushs de RNCS por usuario
@@ -68,7 +67,19 @@ function pegarHtmlPainel(submit) {
         const informarcoes = res.data
         exportarHtmlPainel(informarcoes, submit);
     })).then((e => {
-        if (submit == "gerar") validaRnc();   
+
+        if (submit == "gerar") validaRnc();
+
+        if (submit == "enviadas") {
+            let listaPush = [];
+            for (let i in rncsUsuarioLogado.enviadas) {
+                if (users[userLogado].rnc.enviadas[i] !== undefined) {
+                    console.log(users[userLogado].rnc.enviadas[i])
+                    listaPush.push(users[userLogado].rnc.enviadas[i])
+                }  
+            }
+            renderizarRncs(listaPush)
+        }   
     }))
 }
 
@@ -159,7 +170,8 @@ class Rnc {
         this.data = data,
         this.origem = origem, 
         this.descricao = descricao,
-        this.receptor = null,
+        this.receptor,
+        this.visto,
         this.observadores = [],
         this.imgProb = [],
         this.imgSolu = [],
@@ -171,12 +183,16 @@ class Rnc {
     }
 }
 
-function renderizarRncs(rncs) {
+function renderizarRncs(r) {
+    let rncsUsuario = [];
     const local = document.querySelector(".escopo-rncs");
-    for (let i in rncs)  {
+    for (let i in r)  {
+        let findRnc = rncs.find(element => element.codigo == r[i])
+        /* const found = array1.find(element => element > 10); */
         const div = document.createElement("div");
         div.classList = "rnc-renderizada";
         local.appendChild(div);
+        console.log(findRnc);
     }
 
 }

@@ -6,7 +6,7 @@
         "img" : "../img/logo.png",
         "permissoes": ["global_adm"],
         "rnc": {
-            "enviadas": [1],
+            "enviadas": [1, 2],
             "recebidas": [],
             "observador": [],
             "permissoesAdm": []
