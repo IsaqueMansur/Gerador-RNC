@@ -15,7 +15,7 @@ let users = axios("../../json/users.json").then((resposta => {
     }))
 }));
 
-const userLogado = 1; //TESTANDO COM USER ADM
+const userLogado = 0; //TESTANDO COM USER ADM
 
 //finaliza TESTES jsons do servidor
 
@@ -50,7 +50,6 @@ document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
 
 document.addEventListener("click", e=> {
     if (e.target.classList[1] !== 'eventoC1') return
-    console.log('a')
     const elementos = document.querySelectorAll(".eventoC1");
     for (var i in elementos) {
         if (elementos[i].type == undefined) return
@@ -78,6 +77,7 @@ function pegarHtmlPainel(submit) {
                 }  
             }
             setarRncsPorUsuario(listaPush)
+            eventoPesquisador()
         }   
     }))
 }
@@ -182,13 +182,14 @@ class Rnc {
     }
 }
 
+let rncsUsuario;
 function setarRncsPorUsuario(recebidas) {
-    let rncsUsuario = [];
+    rncsUsuario = [];
     for (let i in recebidas) {
         const findRnc = rncs.find(element => element.codigo == recebidas[i]);
         rncsUsuario.push(findRnc);
     }
-    renderizarRncs(rncsUsuario)
+    renderizarRncs(rncsUsuario);
 }
 
 function renderizarRncs(rncsUsuario) { 
@@ -203,3 +204,15 @@ function renderizarRncs(rncsUsuario) {
         local.appendChild(div);
     }
 }
+
+function eventoPesquisador() {
+    document.querySelector(".searchTerm").addEventListener('keyup', e => {
+        const valoresDigitados = document.querySelector(".searchTerm").value;
+        if (valoresDigitados == '') return
+        const findRnc = rncs.find(element => element.codigo == valoresDigitados); 
+        const validaBusca = rncsUsuario.find(e => e == findRnc);
+        const novaLista = [findRnc]
+        if (validaBusca == findRnc) renderizarRncs(novaLista)
+    })
+}
+
