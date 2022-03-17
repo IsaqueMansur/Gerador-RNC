@@ -401,12 +401,12 @@ container {
 
 /*ABA ENVIAR RNC */
 
-#enviadas-rnc {
+.padraoEnvRec {
     display: flex;
     width: 100%;
     align-items: center;
 }  
-#cabecalho-enviadas {
+.cab-padraoEnvRec {
     padding: 5px;
     display: flex;
     flex-direction: column;

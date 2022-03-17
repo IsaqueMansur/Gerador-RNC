@@ -1,4 +1,5 @@
 //inicia TESTES jsons do servidor
+
 let rncs;
 let users = axios("../../json/users.json").then((resposta => {
     if (resposta.status > 199 && resposta.status < 300) {
@@ -10,16 +11,24 @@ let users = axios("../../json/users.json").then((resposta => {
         if (resposta.status > 199 && resposta.status < 300) {
             rncs = [resposta.data];
             rncs = rncs[0];
+            avaliarPermissoes();
             puxarRncsPorUsuario();
         }
     }))
 }));
 
-const userLogado = 0; //TESTANDO COM USER ADM
-
 //finaliza TESTES jsons do servidor
 
 
+document.querySelector('.submit-apontar').style.display = 'none';
+
+const userLogado = 0; //TESTANDO COM USER ADM
+
+function avaliarPermissoes() {
+    for (let i in users[userLogado].permissoes) {
+        if (users[userLogado].permissoes[i] == 'apontar') document.querySelector('.submit-apontar').style = 'none';
+    }
+}
 
 //inicia TESTES de pushs de RNCS por usuario
 
@@ -50,14 +59,16 @@ document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
 
 document.addEventListener("click", e=> {
     if (e.target.classList[1] !== 'eventoC1') return
+
     const elementos = document.querySelectorAll(".eventoC1");
+
     for (var i in elementos) {
         if (elementos[i].type == undefined) return
         if (elementos[i].value !== '') {
             elementos[i].style.background = "white";
             elementos[i].style.color = "green";
         }
-        else (elementos[i].style = 'none') 
+        else (elementos[i].style = 'none'); 
     }      
 })
 
@@ -78,7 +89,18 @@ function pegarHtmlPainel(submit) {
             }
             setarRncsPorUsuario(listaPush)
             eventoPesquisador()
-        }   
+        } 
+        
+        if (submit == "recebidas") {
+            let listaPush = [];
+            for (let i in rncsUsuarioLogado.recebidas) {
+                if (users[userLogado].rnc.recebidas[i] !== undefined) {
+                    listaPush.push(users[userLogado].rnc.recebidas[i])
+                }  
+            }
+            setarRncsPorUsuario(listaPush)
+            eventoPesquisador()
+        } 
     }))
 }
 
@@ -160,28 +182,6 @@ function validaRnc() {
     return 
 } 
 
-class Rnc {
-    constructor(tipo, setor, data, origem, criador, descricao) {
-        this.codigo = "ultima RNC + 1",
-        this.criador = criador,
-        this.tipo = tipo,
-        this.setor = setor,
-        this.data = data,
-        this.origem = origem, 
-        this.descricao = descricao,
-        this.receptor,
-        this.visto,
-        this.observadores = [],
-        this.imgProb = [],
-        this.imgSolu = [],
-        this.aberta = true,
-        this.lida = false,
-        this.status = "aguardando apontamento",
-        this.historico = [],
-        this.observacoes = []
-    }
-}
-
 let rncsUsuario;
 function setarRncsPorUsuario(recebidas) {
     rncsUsuario = [];
@@ -192,9 +192,20 @@ function setarRncsPorUsuario(recebidas) {
     renderizarRncs(rncsUsuario);
 }
 
-function renderizarRncs(rncsUsuario) { 
+function renderizarRncs(rncsUsuario, apagar) { 
+    const localTabela = document.querySelector("#cabecalho-enviadas");
+
+    if (apagar) {
+        document.querySelector(".escopo-rncs").remove();
+        const div = document.createElement('div');
+        div.className = 'escopo-rncs';
+        localTabela.appendChild(div);
+    }
+
     const local = document.querySelector(".escopo-rncs");
+
     for (let i in rncsUsuario)  {
+        if (rncsUsuario[i] == undefined) return
         const codigo = document.createTextNode(rncsUsuario[i].descricao)
         const p = document.createElement("p");
         p.appendChild(codigo);
@@ -208,11 +219,47 @@ function renderizarRncs(rncsUsuario) {
 function eventoPesquisador() {
     document.querySelector(".searchTerm").addEventListener('keyup', e => {
         const valoresDigitados = document.querySelector(".searchTerm").value;
-        if (valoresDigitados == '') return
+
+        if (valoresDigitados == '' || valoresDigitados == 0) {
+            renderizarRncs(rncsUsuario, true);
+            return
+        }
+
         const findRnc = rncs.find(element => element.codigo == valoresDigitados); 
         const validaBusca = rncsUsuario.find(e => e == findRnc);
-        const novaLista = [findRnc]
-        if (validaBusca == findRnc) renderizarRncs(novaLista)
+
+        if (validaBusca !== findRnc) return
+
+        const novaLista = [findRnc];
+
+        if (validaBusca === findRnc) renderizarRncs(novaLista, true);
     })
 }
 
+class Rnc {
+    constructor(tipo, setor, data, origem, criador, descricao) {
+        this.codigo = "ultima RNC + 1",
+        this.criador = criador,
+        this.tipo = tipo,
+        this.setor = setor,
+        this.data = data,
+        this.origem = origem, 
+        this.descricao = descricao,
+        receptor,
+        visto,
+        observadores = [],
+        imgProb = [],
+        imgSolu = [],
+        aberta = true,
+        lida = false,
+        this.status = "aguardando apontamento",
+        historico = [],
+        observacoes = []
+    }
+}
+
+class Historico {
+    constructor(material, maquina, metodo, maoObra, medida) {
+        this.material = material
+    }
+}

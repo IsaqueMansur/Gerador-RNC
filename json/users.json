@@ -6,8 +6,8 @@
         "img" : "../img/logo.png",
         "permissoes": ["global_adm"],
         "rnc": {
-            "enviadas": [1, 3],
-            "recebidas": [],
+            "enviadas": [1, 2, 3],
+            "recebidas": [1, 2, 3],
             "observador": [],
             "permissoesAdm": []
         }
@@ -18,6 +18,19 @@
         "password": "000",
         "img" : "../img/logo.png",
         "permissoes": [],
+        "rnc": {
+            "enviadas": [2],
+            "recebidas": [],
+            "observador": [],
+            "permissoesAdm": []
+        }
+    },
+    {
+        "cod": 2,
+        "user": "Qualidade",
+        "password": "000",
+        "img" : "../img/logo.png",
+        "permissoes": ["apontar"],
         "rnc": {
             "enviadas": [2],
             "recebidas": [],
