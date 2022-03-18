@@ -87,8 +87,9 @@ function pegarHtmlPainel(submit) {
                     listaPush.push(users[userLogado].rnc.enviadas[i])
                 }  
             }
-            setarRncsPorUsuario(listaPush)
-            eventoPesquisador()
+            setarRncsPorUsuario(listaPush);
+            eventoPesquisador();
+            eventoSelecionaRnc();
         } 
         
         if (submit == "recebidas") {
@@ -98,8 +99,9 @@ function pegarHtmlPainel(submit) {
                     listaPush.push(users[userLogado].rnc.recebidas[i])
                 }  
             }
-            setarRncsPorUsuario(listaPush)
-            eventoPesquisador()
+            setarRncsPorUsuario(listaPush);
+            eventoPesquisador();
+            eventoSelecionaRnc();
         } 
     }))
 }
@@ -165,8 +167,8 @@ function validaRnc() {
         const setor = document.querySelector("#setor").value;
         const data = document.querySelector("#data").value;
         let origem = document.querySelector("#origem");
-        const emissao = document.querySelector("#emissao").value;
         const descricao = document.querySelector("#descricao").value;
+        const quantidade = document.querySelector("#quantidade").value;
 
         if (tipo == '' || setor == '' || data == '' || descricao == '') {
             alert("Campos incompletos");
@@ -177,12 +179,15 @@ function validaRnc() {
             return
         }
         origem = origem.parentElement.childNodes[2].data; 
-        const rncGerada = new Rnc(tipo, setor, data, origem, emissao, descricao);
+        const rncGerada = new Rnc(users[userLogado].user ,tipo, setor, data, origem, descricao, quantidade);
+
+        console.log(rncGerada)
     })  
     return 
 } 
 
 let rncsUsuario;
+
 function setarRncsPorUsuario(recebidas) {
     rncsUsuario = [];
     for (let i in recebidas) {
@@ -193,7 +198,7 @@ function setarRncsPorUsuario(recebidas) {
 }
 
 function renderizarRncs(rncsUsuario, apagar) { 
-    const localTabela = document.querySelector("#cabecalho-enviadas");
+    const localTabela = document.querySelector(".cab-padraoEnvRec");
 
     if (apagar) {
         document.querySelector(".escopo-rncs").remove();
@@ -206,12 +211,35 @@ function renderizarRncs(rncsUsuario, apagar) {
 
     for (let i in rncsUsuario)  {
         if (rncsUsuario[i] == undefined) return
-        const codigo = document.createTextNode(rncsUsuario[i].descricao)
-        const p = document.createElement("p");
-        p.appendChild(codigo);
+
+        const infos = [rncsUsuario[i].codigo, rncsUsuario[i].criador, rncsUsuario[i].origem, rncsUsuario[i].status];
         const div = document.createElement("div");
-        div.appendChild(p);
-        div.classList = "rnc-renderizada";
+
+        for (let o in infos) {
+
+            let atributoAtual;
+            const p = document.createElement("p");
+
+            if (rncsUsuario[i].codigo === infos[o]) atributoAtual = "Código: ";
+            if (rncsUsuario[i].criador === infos[o]) {
+                atributoAtual = "Criador: ";
+                infos[o] = users[infos[o]].user;
+            } 
+            if (rncsUsuario[i].origem === infos[o]) atributoAtual = "Origem: ";
+            if (rncsUsuario[i].status === infos[o]) {
+                atributoAtual = '';
+                if (infos[o] === "aguardando direcionamento") p.classList = 'statusRncPainel statusRed';
+                if (infos[o] === "aguardando posicionamento do responsável") p.classList = 'statusRncPainel statusOrange';
+                if (infos[o] === "aguardando verificação da eficácia") p.classList = 'statusRncPainel statusYellow';
+                if (infos[o] === "finalizada") p.classList = 'statusRncPainel statusGreen';
+            }
+
+            const item = document.createTextNode(`${atributoAtual} ${infos[o]}`);
+
+            p.appendChild(item);
+            div.appendChild(p);
+            div.classList = `rnc-renderizada ${rncsUsuario[i].codigo}`;  
+        }
         local.appendChild(div);
     }
 }
@@ -227,7 +255,8 @@ function eventoPesquisador() {
 
         const findRnc = rncs.find(element => element.codigo == valoresDigitados); 
         const validaBusca = rncsUsuario.find(e => e == findRnc);
-
+        
+        if (validaBusca === undefined) renderizarRncs([], true);
         if (validaBusca !== findRnc) return
 
         const novaLista = [findRnc];
@@ -236,8 +265,32 @@ function eventoPesquisador() {
     })
 }
 
+function eventoSelecionaRnc() {
+    document.querySelector(".escopo-rncs").addEventListener('click', e => {
+
+        if (e.target.classList[0] === 'escopo-rncs') return
+
+        let rncClicada;
+
+        if (e.target.classList[0] === 'rnc-renderizada') {
+            rncClicada = e.target.classList[1] 
+        }else {
+            rncClicada = e.target.parentElement.classList[1]
+        }
+        
+        const findRnc = rncs.find(element => element.codigo == rncClicada);
+
+        renderizarRncPainel(findRnc);
+    })
+}
+
+function renderizarRncPainel(rnc) {
+    
+    const local = document.querySelector(".cab-container-control-rncs");
+}
+
 class Rnc {
-    constructor(tipo, setor, data, origem, criador, descricao) {
+    constructor(criador ,tipo, setor, data, origem, descricao, quantidade) {
         this.codigo = "ultima RNC + 1",
         this.criador = criador,
         this.tipo = tipo,
@@ -245,21 +298,22 @@ class Rnc {
         this.data = data,
         this.origem = origem, 
         this.descricao = descricao,
-        receptor,
-        visto,
-        observadores = [],
-        imgProb = [],
-        imgSolu = [],
-        aberta = true,
-        lida = false,
+        this.quantidade = Number(quantidade),
+        this.receptor,
+        this.visto,
+        this.observadores = [],
+        this.imgProb = [],
+        this.imgSolu = [],
+        this.aberta = true,
+        this.lida = false,
         this.status = "aguardando apontamento",
-        historico = [],
-        observacoes = []
+        this.historico = [],
+        this.observacoes = []
     }
 }
 
-class Historico {
-    constructor(material, maquina, metodo, maoObra, medida) {
-        this.material = material
+class AnaliseCausas {
+    constructor(objCausa) {
+        causa = objCausa
     }
 }
