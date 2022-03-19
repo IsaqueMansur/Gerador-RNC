@@ -26,11 +26,9 @@ const userLogado = 0; //TESTANDO COM USER ADM
 
 function avaliarPermissoes() {
     for (let i in users[userLogado].permissoes) {
-        if (users[userLogado].permissoes[i] == 'apontar') document.querySelector('.submit-apontar').style = 'none';
+        if (users[userLogado].permissoes[i] == 'apontar' || users[userLogado].permissoes[i] == 'global_adm') document.querySelector('.submit-apontar').style = 'none';
     }
 }
-
-//inicia TESTES de pushs de RNCS por usuario
 
 let rncsUsuarioLogado;
 
@@ -41,10 +39,6 @@ function puxarRncsPorUsuario() {
         observador: users[userLogado].rnc.observador
     }
 }
-
-//finaliza TESTES de pushs de RNCS por usuario
-
-
 
 document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
     const target = e.target.classList[0];
@@ -169,8 +163,10 @@ function validaRnc() {
         let origem = document.querySelector("#origem");
         const descricao = document.querySelector("#descricao").value;
         const quantidade = document.querySelector("#quantidade").value;
+        const op = document.querySelector("#op").value;
+        const cliche = document.querySelector("#cliche").value;
 
-        if (tipo == '' || setor == '' || data == '' || descricao == '') {
+        if (tipo =='' || setor =='' || data =='' || descricao =='' || quantidade =='' || op =='' || cliche =='') {
             alert("Campos incompletos");
             return
         }
@@ -179,7 +175,7 @@ function validaRnc() {
             return
         }
         origem = origem.parentElement.childNodes[2].data; 
-        const rncGerada = new Rnc(users[userLogado].user ,tipo, setor, data, origem, descricao, quantidade);
+        const rncGerada = new Rnc(users[userLogado].user ,tipo, setor, data, origem, quantidade, op, cliche, descricao);
 
         console.log(rncGerada)
     })  
@@ -223,7 +219,6 @@ function renderizarRncs(rncsUsuario, apagar) {
             if (rncsUsuario[i].codigo === infos[o]) atributoAtual = "Código: ";
             if (rncsUsuario[i].criador === infos[o]) {
                 atributoAtual = "Criador: ";
-                infos[o] = users[infos[o]].user;
             } 
             if (rncsUsuario[i].origem === infos[o]) atributoAtual = "Origem: ";
             if (rncsUsuario[i].status === infos[o]) {
@@ -290,13 +285,15 @@ function renderizarRncPainel(rnc) {
 }
 
 class Rnc {
-    constructor(criador ,tipo, setor, data, origem, descricao, quantidade) {
+    constructor(criador ,tipo, setor, data, origem, quantidade, op, cliche, descricao) {
         this.codigo = "ultima RNC + 1",
         this.criador = criador,
         this.tipo = tipo,
         this.setor = setor,
         this.data = data,
         this.origem = origem, 
+        this.op = Number(op),
+        this.cliche = cliche,
         this.descricao = descricao,
         this.quantidade = Number(quantidade),
         this.receptor,

@@ -6,6 +6,17 @@
     --font-padrao: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.inputDigit {
+    height: 25px;
+    text-align: center;
+    color: green;
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    border-style: none;
+}.inputDigit:hover {
+    opacity: .7;
+}
+
 body {
 	background: linear-gradient(-90deg, #a9ffca, #7ee4a5, #61bb98, #428b63);
 	background-size: 400% 400%;
@@ -362,6 +373,26 @@ container {
     text-align: center;
     color: white;
     font-size: 22pt;
+}
+.opCliche {
+    color: white;
+    text-align: center;
+    justify-content: space-around;
+    align-items: center;
+    width: 65%;
+    height: 50px;
+    margin-top: 2%;
+    display: flex;
+    border-radius: 5px;
+}.opCliche input {
+    width: 90%;
+}.opClicheBox {
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 10px;
+    background-color: rgb(158, 158, 158);
+    width: 100%;
+    height: 60px;
 }
 .description {
     width: 100%;
