@@ -7,7 +7,7 @@
         "permissoes": ["global_adm"],
         "rnc": {
             "enviadas": [1, 2, 3, 4, 5],
-            "recebidas": [1, 3],
+            "recebidas": [1, 3, 5],
             "observador": [],
             "permissoesAdm": []
         }
@@ -30,7 +30,7 @@
         "user": "Qualidade",
         "password": "000",
         "img" : "../img/logo.png",
-        "permissoes": ["apontar"],
+        "permissoes": ["direcionar"],
         "rnc": {
             "enviadas": [2],
             "recebidas": [],

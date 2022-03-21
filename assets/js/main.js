@@ -13,6 +13,7 @@ let users = axios("../../json/users.json").then((resposta => {
             rncs = rncs[0];
             avaliarPermissoes();
             puxarRncsPorUsuario();
+            enviarNotificacoes();
         }
     }))
 }));
@@ -20,15 +21,27 @@ let users = axios("../../json/users.json").then((resposta => {
 //finaliza TESTES jsons do servidor
 
 
-document.querySelector('.submit-apontar').style.display = 'none';
+document.querySelector('.submit-direcionar').style.display = 'none';
 
 const userLogado = 0; //TESTANDO COM USER ADM
 
 function avaliarPermissoes() {
     for (let i in users[userLogado].permissoes) {
-        if (users[userLogado].permissoes[i] == 'apontar' || users[userLogado].permissoes[i] == 'global_adm') document.querySelector('.submit-apontar').style = 'none';
+        if (users[userLogado].permissoes[i] == 'direcionar' || users[userLogado].permissoes[i] == 'global_adm') document.querySelector('.submit-direcionar').style = 'none';
     }
 }
+
+function enviarNotificacoes() {
+    let notificacoes = 0;
+    for (let i in rncs) {
+        if (rncs[i].status == "aguardando direcionamento") notificacoes ++;
+    }
+    document.querySelector("#notifica-direcionar").textContent = notificacoes;
+    if (Number(document.querySelector("#notifica-direcionar").textContent) > 0) {
+        document.querySelector("#notifica-direcionar").classList += ' notificacao-on';
+    };
+}
+
 
 let rncsUsuarioLogado;
 
@@ -72,7 +85,7 @@ function pegarHtmlPainel(submit) {
         exportarHtmlPainel(informarcoes, submit);
     })).then((e => {
 
-        if (submit == "gerar") validaRnc();
+        if (submit == "gerar") validarRnc();
 
         if (submit == "enviadas") {
             let listaPush = [];
@@ -83,7 +96,6 @@ function pegarHtmlPainel(submit) {
             }
             setarRncsPorUsuario(listaPush);
             eventoPesquisador();
-            eventoSelecionaRnc();
         } 
         
         if (submit == "recebidas") {
@@ -95,8 +107,16 @@ function pegarHtmlPainel(submit) {
             }
             setarRncsPorUsuario(listaPush);
             eventoPesquisador();
-            eventoSelecionaRnc();
         } 
+
+        if (submit == "direcionar") {
+            let listaPush = [];
+            for (let i in rncs) {
+                if (rncs[i].status == "aguardando direcionamento") listaPush.push(rncs[i].codigo);
+            }
+            setarRncsPorUsuario(listaPush)
+            eventoPesquisador();
+        }
     }))
 }
 
@@ -107,6 +127,7 @@ function exportarHtmlPainel(html, submit) {
     if (submit == "gerar") eventoOrigemRnc();
     abaSelecionadaMenu(submit)
 }
+
 
 function abaSelecionadaMenu(submit) {
     try {
@@ -154,7 +175,7 @@ function eventoOrigemRnc() {
     })
 }
 
-function validaRnc() {
+function validarRnc() {
     document.querySelector("#criar-rnc").addEventListener("submit", e => {
         e.preventDefault();
         const tipo = document.querySelector("#tipo").value;
@@ -176,8 +197,6 @@ function validaRnc() {
         }
         origem = origem.parentElement.childNodes[2].data; 
         const rncGerada = new Rnc(users[userLogado].user ,tipo, setor, data, origem, quantidade, op, cliche, descricao);
-
-        console.log(rncGerada)
     })  
     return 
 } 
@@ -208,7 +227,7 @@ function renderizarRncs(rncsUsuario, apagar) {
     for (let i in rncsUsuario)  {
         if (rncsUsuario[i] == undefined) return
 
-        const infos = [rncsUsuario[i].codigo, rncsUsuario[i].criador, rncsUsuario[i].origem, rncsUsuario[i].status];
+        const infos = [rncsUsuario[i].codigo, rncsUsuario[i].op, rncsUsuario[i].criador, rncsUsuario[i].origem, rncsUsuario[i].status];
         const div = document.createElement("div");
 
         for (let o in infos) {
@@ -217,6 +236,7 @@ function renderizarRncs(rncsUsuario, apagar) {
             const p = document.createElement("p");
 
             if (rncsUsuario[i].codigo === infos[o]) atributoAtual = "Código: ";
+            if (rncsUsuario[i].op === infos[o]) atributoAtual = "O.P.:"
             if (rncsUsuario[i].criador === infos[o]) {
                 atributoAtual = "Criador: ";
             } 
@@ -237,6 +257,7 @@ function renderizarRncs(rncsUsuario, apagar) {
         }
         local.appendChild(div);
     }
+    eventoSelecionaRnc();
 }
 
 function eventoPesquisador() {
@@ -279,10 +300,79 @@ function eventoSelecionaRnc() {
     })
 }
 
-function renderizarRncPainel(rnc) {
-    
+function renderizarRncPainel(rnc, direcionar) { 
+    try {
+        document.querySelector(".div-infos-painel-rnc").remove();
+    } catch {
+    }
     const local = document.querySelector(".cab-container-control-rncs");
+    const listaTitulo = ['O.P.', 'Clichê', 'Criador', 'Setor', 'Descrição'];
+    const listaDescricao = [rnc.op, rnc.cliche, rnc.criador, rnc.setor, rnc.descricao];
+    const divInfos = document.createElement('div');
+    divInfos.classList = 'div-infos-painel-rnc';
+
+    criarTabelaDescricao(listaTitulo, listaDescricao, divInfos, local);
 }
+
+function criarTabelaDescricao(lista1, lista2, div, divMain) {
+    const table = document.createElement('table');
+    const body = document.createElement('tbody');
+
+    for (let i in lista1) {
+        const tr = document.createElement('tr');
+        let th = document.createElement('th');
+
+        if (lista1[i] == 'Descrição') tr.classList = 'trDescricao';
+
+        const t1 = document.createTextNode(lista1[i]);
+        const t2 = document.createTextNode(lista2[i]);
+
+        th.appendChild(t1);
+        th.classList = 'thDescricaoTitulo'
+        tr.appendChild(th);
+
+        th = document.createElement('th');
+
+        th.appendChild(t2);
+        tr.appendChild(th);
+        body.appendChild(tr);
+    }
+    table.appendChild(body);
+    div.appendChild(table);
+    divMain.appendChild(div);  
+    table.classList = 'tabelaDescricaoPadrao';
+}
+
+/* function criarTabelaPadrao(listaHead, listaBody, localDiv, localMae) {
+    const table = document.createElement('table');
+    const head = document.createElement('thead');
+    const body = document.createElement('tbody');
+    const trHead = document.createElement('tr');
+    const trBody = document.createElement('tr');
+
+    for (let i in listaHead) {
+        console.log(listaHead)
+        const th = document.createElement('th');
+        const titulo = document.createTextNode(listaHead[i]);
+        th.appendChild(titulo);
+        trHead.appendChild(th);
+    }
+    head.appendChild(trHead);
+
+    for (let i in listaBody) {
+        const th = document.createElement('th');
+        const titulo = document.createTextNode(listaBody[i]);
+        th.appendChild(titulo);
+        trBody.appendChild(th);
+    }
+    body.appendChild(trBody);
+
+    table.appendChild(head);
+    table.appendChild(body);
+
+    localDiv.appendChild(table);
+    localMae.appendChild(localDiv);
+} */
 
 class Rnc {
     constructor(criador ,tipo, setor, data, origem, quantidade, op, cliche, descricao) {
@@ -305,7 +395,8 @@ class Rnc {
         this.lida = false,
         this.status = "aguardando apontamento",
         this.historico = [],
-        this.observacoes = []
+        this.observacoes = [],
+        this.estatisticas = []
     }
 }
 

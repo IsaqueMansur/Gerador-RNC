@@ -149,9 +149,11 @@ container {
     flex-direction: column;
 }
 #tabela-opcoes-menu tbody td {
+    display: flex;
+    justify-content: center;
     line-height: 200%;
     font-family: var(--font-padrao);
-    font-size: 18pt;
+    font-size: 1.5em;
     color: white;
     width: 3em;
     text-align: center;
@@ -177,9 +179,15 @@ container {
 }#ico-recebidas {
     transform: rotate(180deg);
 }
-.notificacao-menu {
+.notificacao-menu{
     width: 50%;
     font-style: normal;
+    font-size: .9em;
+}
+.notificacao-on {
+    width: 65%;
+    border-radius: 50%;
+    background-color: rgb(253, 133, 133);
 }
 
 #painel-principal {
@@ -379,13 +387,13 @@ container {
     text-align: center;
     justify-content: space-around;
     align-items: center;
-    width: 65%;
+    width: 95%;
     height: 50px;
     margin-top: 2%;
     display: flex;
     border-radius: 5px;
 }.opCliche input {
-    width: 90%;
+    width: 97%;
 }.opClicheBox {
     margin-left: 2%;
     margin-right: 2%;
@@ -443,7 +451,7 @@ container {
     border-radius: 20px;
     width: 25%;
     height: 100%;
-    background-color: transparent;
+    background-color: var(--color-clean);
 }
 
 .search {
@@ -484,15 +492,20 @@ container {
 }
 
 .escopo-rncs {
+    padding: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 10px;
     margin-top: 7%;
     width: 95%;
     background-color: transparent;
     height: 90%;
     overflow-y: scroll;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    background-color: var(--color-dark);
 }.escopo-rncs::-webkit-scrollbar {
     display: none;
 }
@@ -504,6 +517,7 @@ container {
 }
 
 .rnc-renderizada {
+    border-radius: 5px;
     padding: 2px 4px;
     border-style: solid;
     border-color: var(--color-dark);
@@ -513,11 +527,10 @@ container {
     justify-content: center;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
     margin-top: 20px;
     width: 95%;    
-    min-height: 120px;
-    background: rgb(241, 241, 241);
+    min-height: 140px;
+    background: white;
     opacity: 1;
     overflow: hidden;
 }
@@ -528,6 +541,7 @@ container {
     margin-block-end: 3px;
     margin-block-start: 3px;
 }.rnc-renderizada:hover {
+    opacity: .8;
     cursor: pointer;
 }
 .selecionarRnc {
@@ -548,6 +562,8 @@ container {
 .cab-container-control-rncs {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: var(--color-clean);
     border-radius: 10px 10px 0 0;
     width: 100%;
@@ -587,4 +603,30 @@ container {
 }
 .statusGreen {
     background-color: rgb(194, 253, 154);
+}
+
+.tabelaDescricaoPadrao {
+    padding: 1%;
+    background-color: var(--color-dark);
+    font-family: var(--font-padrao);
+    width: 100%;    
+    border-style: solid;
+    border-radius: 10px;
+    border-color: white;
+}
+.tabelaDescricaoPadrao tr th{
+    background-color: white;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+.div-infos-painel-rnc {
+    width: 99%;
+}
+
+.thDescricaoTitulo {
+    width: 20%;
+}
+
+.trDescricao {
+    height: 6em;
 }

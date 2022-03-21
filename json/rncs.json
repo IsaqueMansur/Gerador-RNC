@@ -8,7 +8,7 @@
         "origem": "Reclamação de cliente",
         "op": 370880,
         "cliche": "mussarela x",
-        "descricao": "bo na bobina",
+        "descricao": "Bobina com bordas caidas do ínicio ao fim",
         "quantidade": 6000,
         "observadores": [],
         "imgProb": [],
@@ -17,7 +17,8 @@
         "lida": false,
         "status": "aguardando direcionamento",
         "historico": [],
-        "observacoes": []
+        "observacoes": [],
+        "estatisticas":  []
     },
     {
         "codigo": 2,
@@ -28,7 +29,7 @@
         "origem": "Reclamação de cliente",
         "op": 370881,
         "cliche": "mussarela x",
-        "descricao": "bo na bobina",
+        "descricao": "descrição 2",
         "quantidade": 6000,
         "observadores": [],
         "imgProb": [],
@@ -37,7 +38,8 @@
         "lida": false,
         "status": "aguardando posicionamento do responsável",
         "historico": [],
-        "observacoes": []
+        "observacoes": [],
+        "estatisticas":  []
     },
     {
         "codigo": 3,
@@ -48,7 +50,7 @@
         "origem": "Reclamação de cliente",
         "op": 370882,
         "cliche": "mussarela x",
-        "descricao": "bo na bobina",
+        "descricao": "descrição 3",
         "quantidade": 6000,
         "observadores": [],
         "imgProb": [],
@@ -57,7 +59,8 @@
         "lida": false,
         "status": "aguardando verificação da eficácia",
         "historico": [],
-        "observacoes": []
+        "observacoes": [],
+        "estatisticas":  []
     },
     {
         "codigo": 4,
@@ -68,7 +71,7 @@
         "origem": "Reclamação de cliente",
         "op": 370883,
         "cliche": "mussarela x",
-        "descricao": "bo na bobina",
+        "descricao": "descrição 4",
         "quantidade": 6000,
         "observadores": [],
         "imgProb": [],
@@ -77,7 +80,8 @@
         "lida": false,
         "status": "finalizada",
         "historico": [],
-        "observacoes": []
+        "observacoes": [],
+        "estatisticas":  []
     },
     {
         "codigo": 5,
@@ -88,7 +92,7 @@
         "origem": "Reclamação de cliente",
         "op": 370884,
         "cliche": "mussarela x",
-        "descricao": "bo na bobina",
+        "descricao": "descrição 5",
         "quantidade": 6000,
         "observadores": [],
         "imgProb": [],
@@ -97,7 +101,8 @@
         "lida": false,
         "status": "aguardando verificação da eficácia",
         "historico": [],
-        "observacoes": []
+        "observacoes": [],
+        "estatisticas":  []
     }
     
 ]
