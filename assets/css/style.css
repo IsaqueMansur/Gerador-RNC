@@ -268,11 +268,11 @@ container {
     font-size: 22pt;
 }
 .list {
-   width: 240px;
-   padding: 10px;
-   border-radius: 10px;
-   background-color: transparent;
-   display: flex;
+    width: 240px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
+    display: flex;
     flex-direction: column;
     align-items: center;
     align-content: center;
@@ -658,6 +658,7 @@ container {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 .setor-direcionar {
     border-radius: 10px;
@@ -666,7 +667,7 @@ container {
     background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
     animation: gradient 6s ease infinite;
     background-size: 400% 400%;
-    width: 30%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -687,3 +688,25 @@ container {
     border-radius: 10px;
     background-color: var(--color-dark);
 }
+.checkbox-row {
+    padding-inline-start: 0;
+    width: 98%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+}
+.list-checkbox-row {
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
+    animation: gradient 6s ease infinite;
+    background-size: 400% 400%;
+    min-width: 18%;
+}
+
+
+    

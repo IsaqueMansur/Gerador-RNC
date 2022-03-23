@@ -197,6 +197,7 @@ function validarRnc() {
         }
         origem = origem.parentElement.childNodes[2].data; 
         const rncGerada = new Rnc(users[userLogado].user ,tipo, setor, data, origem, quantidade, op, cliche, descricao);
+        console.log(rncGerada);
     })  
     return 
 } 
@@ -379,14 +380,15 @@ class Rnc {
         this.codigo = "ultima RNC + 1",
         this.criador = criador,
         this.tipo = tipo,
-        this.setor = setor,
+        this.setorCriador = setor,
+        this.setorResponsavel,
         this.data = data,
         this.origem = origem, 
         this.op = Number(op),
         this.cliche = cliche,
         this.descricao = descricao,
         this.quantidade = Number(quantidade),
-        this.receptor,
+        this.receptor = [],
         this.visto,
         this.observadores = [],
         this.imgProb = [],
