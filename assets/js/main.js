@@ -344,6 +344,25 @@ function criarTabelaDescricao(lista1, lista2, div, divMain) {
     table.classList = 'tabelaDescricaoPadrao';
 }
 
+function avaliarDirecionamento() {
+    const setorDirecionado = document.querySelector("#setor-receptor");
+    const checkxboxDirecionamento = document.querySelector(".checkbox-row");
+    const x = document.querySelector(".list-checkbox-row");
+    a= x
+
+    if (setorDirecionado.value == '') {
+        alert("Por favor, indique qual o setor responsável pela Não conformidade");
+        return
+    }
+
+    for (let i in checkxboxDirecionamento.childNodes) {
+        if (i == 'entries') return;
+        if (checkxboxDirecionamento.childNodes[i].childNodes[1] !== undefined) {
+            console.log(checkxboxDirecionamento.childNodes[i].childNodes[1].childNodes[1].checked === true);
+        }          
+    }
+}
+
 /* function criarTabelaPadrao(listaHead, listaBody, localDiv, localMae) {
     const table = document.createElement('table');
     const head = document.createElement('thead');
