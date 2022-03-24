@@ -545,7 +545,7 @@ container {
     flex-direction: column;
     margin-top: 20px;
     width: 95%;    
-    min-height: 140px;
+    min-height: 150px;
     background: white;
     opacity: 1;
     overflow: hidden;
