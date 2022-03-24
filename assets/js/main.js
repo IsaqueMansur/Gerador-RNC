@@ -308,7 +308,7 @@ function renderizarRncPainel(rnc, direcionar) {
     }
     const local = document.querySelector(".cab-container-control-rncs");
     const listaTitulo = ['O.P.', 'Clichê', 'Criador', 'Setor', 'Descrição'];
-    const listaDescricao = [rnc.op, rnc.cliche, rnc.criador, rnc.setor, rnc.descricao];
+    const listaDescricao = [rnc.op, rnc.cliche, rnc.criador, rnc.setorCriador, rnc.descricao];
     const divInfos = document.createElement('div');
     divInfos.classList = 'div-infos-painel-rnc';
 
