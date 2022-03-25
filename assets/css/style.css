@@ -545,7 +545,7 @@ container {
     flex-direction: column;
     margin-top: 20px;
     width: 95%;    
-    min-height: 140px;
+    min-height: 150px;
     background: white;
     opacity: 1;
     overflow: hidden;
@@ -680,8 +680,6 @@ container {
     margin-top: .5%;
     width: 97%;
     height: 20%;
-    border-style: solid;
-    border-color: var(--color-clean);
 }
 .setor-direcionar {
     color: white;
@@ -720,7 +718,7 @@ container {
     border-radius: 10px;
     padding: 1%;
     border-style: solid;
-    border-color: var(--color-clean);
+    border-color: var(--color-dark);
     padding-inline-start: 0px;
     width: 97%;
     display: flex;
@@ -763,21 +761,36 @@ container {
     width: 8%;
     height: 40%;  
 }
+.rodapeRow {
+    width: 90%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.cancelar-direcionamento {
+    background: linear-gradient(-90deg, #b93f3f, #d84545, #c74747, #912424);
+    animation: gradient 6s ease infinite;
+    background-size: 400% 400%;
+}
 .submit-direcionamento {
+    background: linear-gradient(-90deg, #3fb953, #45d85d, #47c74d, #249136);
+    animation: gradient 6s ease infinite;
+    background-size: 400% 400%;
+}
+
+.div-rodape-row {
     border-radius: 10px;
     color: white;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
-    animation: gradient 6s ease infinite;
-    background-size: 400% 400%;
     width: 30%;
-    height: 10%;
-    margin-top: -1%;
-}.submit-direcionamento:hover {
-    background: var(--color-dark);
+    height: 80%;
+}.div-rodape-row:hover {
     cursor: pointer;
     opacity: .8;
 }

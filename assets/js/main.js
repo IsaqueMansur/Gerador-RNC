@@ -183,11 +183,12 @@ function validarRnc() {
         const data = document.querySelector("#data").value;
         let origem = document.querySelector("#origem");
         const descricao = document.querySelector("#descricao").value;
+        console.log(descricao.value)
         const quantidade = document.querySelector("#quantidade").value;
         const op = document.querySelector("#op").value;
         const cliche = document.querySelector("#cliche").value;
 
-        if (tipo =='' || setor =='' || data =='' || descricao =='' || quantidade =='' || op =='' || cliche =='') {
+        if (tipo =='' || setor =='' || data =='' || descricao == undefined || quantidade =='' || op =='' || cliche =='') {
             alert("Campos incompletos");
             return
         }
@@ -308,7 +309,7 @@ function renderizarRncPainel(rnc, direcionar) {
     }
     const local = document.querySelector(".cab-container-control-rncs");
     const listaTitulo = ['O.P.', 'Clichê', 'Criador', 'Setor', 'Descrição'];
-    const listaDescricao = [rnc.op, rnc.cliche, rnc.criador, rnc.setor, rnc.descricao];
+    const listaDescricao = [rnc.op, rnc.cliche, rnc.criador, rnc.setorCriador, rnc.descricao];
     const divInfos = document.createElement('div');
     divInfos.classList = 'div-infos-painel-rnc';
 
