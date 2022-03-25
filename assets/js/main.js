@@ -42,9 +42,7 @@ function enviarNotificacoes() {
     };
 }
 
-
 let rncsUsuarioLogado;
-
 function puxarRncsPorUsuario() {
     rncsUsuarioLogado = {
         enviadas: users[userLogado].rnc.enviadas,
@@ -61,7 +59,7 @@ document.querySelector("#tabela-opcoes-menu").addEventListener("click", e => {
 
     const tipoSubmit = target.slice(7);
     
-    pegarHtmlPainel(tipoSubmit)
+    pegarHtmlPainel(tipoSubmit);
 })
 
 document.addEventListener("click", e=> {
@@ -116,6 +114,7 @@ function pegarHtmlPainel(submit) {
             }
             setarRncsPorUsuario(listaPush)
             eventoPesquisador();
+            eventoSubmitDirecionar();
         }
     }))
 }
@@ -148,7 +147,7 @@ function eventoOrigemRnc() {
     let abaSelecionada;
     const listaOpcoes = document.querySelector(".list");
     let filhosListaOp = (new Array(...listaOpcoes.children));
-    filhosListaOp.splice(0, 1)
+    filhosListaOp.splice(0, 1);
     listaOpcoes.addEventListener('click', (e) => {
         try {
             document.querySelector("#origem").removeAttribute('id');
@@ -183,7 +182,7 @@ function validarRnc() {
         const data = document.querySelector("#data").value;
         let origem = document.querySelector("#origem");
         const descricao = document.querySelector("#descricao").value;
-        console.log(descricao.value)
+        console.log(descricao)
         const quantidade = document.querySelector("#quantidade").value;
         const op = document.querySelector("#op").value;
         const cliche = document.querySelector("#cliche").value;
@@ -291,18 +290,28 @@ function eventoSelecionaRnc() {
         let rncClicada;
 
         if (e.target.classList[0] === 'rnc-renderizada') {
-            rncClicada = e.target.classList[1] 
+            rncClicada = e.target.classList[1]; 
         }else {
-            rncClicada = e.target.parentElement.classList[1]
+            rncClicada = e.target.parentElement.classList[1];
         }
         
         const findRnc = rncs.find(element => element.codigo == rncClicada);
 
+        try {
+            document.querySelector(".container-control-rncs").reset();
+        } catch {
+
+        }
         renderizarRncPainel(findRnc);
     })
 }
 
-function renderizarRncPainel(rnc, direcionar) { 
+function renderizarRncPainel(rnc) { 
+    try {
+        document.querySelector(".container-control-rncs").style = 'none';
+    } catch{
+
+    }
     try {
         document.querySelector(".div-infos-painel-rnc").remove();
     } catch {
@@ -330,7 +339,7 @@ function criarTabelaDescricao(lista1, lista2, div, divMain) {
         const t2 = document.createTextNode(lista2[i]);
 
         th.appendChild(t1);
-        th.classList = 'thDescricaoTitulo'
+        th.classList = 'thDescricaoTitulo';
         tr.appendChild(th);
 
         th = document.createElement('th');
@@ -347,9 +356,11 @@ function criarTabelaDescricao(lista1, lista2, div, divMain) {
 
 function avaliarDirecionamento() {
     const setorDirecionado = document.querySelector("#setor-receptor");
+
+    const estatisticas = [];
+
     const checkxboxDirecionamento = document.querySelector(".checkbox-row");
-    const x = document.querySelector(".list-checkbox-row");
-    a= x
+
 
     if (setorDirecionado.value == '') {
         alert("Por favor, indique qual o setor responsável pela Não conformidade");
@@ -357,43 +368,30 @@ function avaliarDirecionamento() {
     }
 
     for (let i in checkxboxDirecionamento.childNodes) {
-        if (i == 'entries') return;
+        if (i == 'entries') break;
         if (checkxboxDirecionamento.childNodes[i].childNodes[1] !== undefined) {
-            console.log(checkxboxDirecionamento.childNodes[i].childNodes[1].childNodes[1].checked === true);
-        }          
+            if (checkxboxDirecionamento.childNodes[i].childNodes[1].childNodes[1].checked === true) 
+            estatisticas.push(String(checkxboxDirecionamento.childNodes[i].childNodes[1].childNodes[1].parentElement.childNodes[2].textContent));
+        }       
     }
+    if (estatisticas.length < 1) {
+        alert("Por favor, indique ao menos 1 motivo");
+        return
+    }
+    console.log( {
+        setorResponsavel: setorDirecionado.value,
+        estatisticas: estatisticas
+    })
 }
 
-/* function criarTabelaPadrao(listaHead, listaBody, localDiv, localMae) {
-    const table = document.createElement('table');
-    const head = document.createElement('thead');
-    const body = document.createElement('tbody');
-    const trHead = document.createElement('tr');
-    const trBody = document.createElement('tr');
+function eventoSubmitDirecionar() {
+    document.querySelector(".container-control-rncs").addEventListener('submit', e => {
+        e.preventDefault();
+        avaliarDirecionamento();
+    })
+}
 
-    for (let i in listaHead) {
-        console.log(listaHead)
-        const th = document.createElement('th');
-        const titulo = document.createTextNode(listaHead[i]);
-        th.appendChild(titulo);
-        trHead.appendChild(th);
-    }
-    head.appendChild(trHead);
 
-    for (let i in listaBody) {
-        const th = document.createElement('th');
-        const titulo = document.createTextNode(listaBody[i]);
-        th.appendChild(titulo);
-        trBody.appendChild(th);
-    }
-    body.appendChild(trBody);
-
-    table.appendChild(head);
-    table.appendChild(body);
-
-    localDiv.appendChild(table);
-    localMae.appendChild(localDiv);
-} */
 
 class Rnc {
     constructor(criador ,tipo, setor, data, origem, quantidade, op, cliche, descricao) {

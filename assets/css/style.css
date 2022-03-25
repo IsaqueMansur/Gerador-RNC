@@ -4,6 +4,7 @@
     --color-dark: rgb(56, 159, 167);
     --color-clean: rgb(147, 235, 235);
     --font-padrao: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    --gradient-padrao-1: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
 }
 
 .inputDigit {
@@ -18,7 +19,7 @@
 }
 
 body {
-	background: linear-gradient(-90deg, #a9fff4, #7ee4d6, #61a1bb, #42628b);
+	background: var(--gradient-padrao-1);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
     height: 100vh;
@@ -198,7 +199,7 @@ container {
     background-color: transparent;
 }
 #barra-ativa {
-    background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
+    background: var(--gradient-padrao-1);
     animation: gradient 9s ease infinite;
     background-size: 400% 400%;
     font-weight: 700;
@@ -580,13 +581,12 @@ container {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-clean);
+    background: var(--gradient-padrao-1);
+    animation: gradient 9s ease infinite;
+    background-size: 400% 400%;
     border-radius: 10px 10px 0 0;
     width: 100%;
     height: 35%;
-    border-style: solid;
-    border-width: 2.5px;
-    border-color: var(--color-dark);
 }
 
 .body-container-control-rncs {
@@ -598,9 +598,6 @@ container {
     border-radius: 0 0 10px 10px;
     width: 100%;
     height: 65%;
-    border-style: solid;
-    border-width: 2.5px;
-    border-color: var(--color-dark);
 }
 
 .statusRncPainel {
@@ -625,12 +622,12 @@ container {
 
 .tabelaDescricaoPadrao {
     padding: 1%;
-    background-color: var(--color-dark);
     font-family: var(--font-padrao);
     width: 100%;    
     border-style: solid;
     border-radius: 10px;
     border-color: white;
+    border-width: 1px;
 }
 .tabelaDescricaoPadrao tr th{
     background-color: white;
@@ -686,7 +683,7 @@ container {
     border-radius: 10px;
     padding: 2%;
     font-size: 2em;
-    background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
+    background: var(--gradient-padrao-1);
     animation: gradient 6s ease infinite;
     background-size: 400% 400%;
     width: 100%;
@@ -741,7 +738,7 @@ container {
     justify-content: center;
     display: flex;
     flex-direction: row;
-    background: linear-gradient(-90deg, #3fb9a9, #45d8c4, #47adc7, #248991);
+    background: var(--gradient-padrao-1);
     animation: gradient 6s ease infinite;
     background-size: 400% 400%;
     width: 30%;
@@ -781,7 +778,8 @@ container {
     background-size: 400% 400%;
 }
 
-.div-rodape-row {
+.btn-rodape-row {
+    border-style: none;
     border-radius: 10px;
     color: white;
     display: flex;
@@ -790,7 +788,7 @@ container {
     align-items: center;
     width: 30%;
     height: 80%;
-}.div-rodape-row:hover {
+}.btn-rodape-row:hover {
     cursor: pointer;
     opacity: .8;
 }
